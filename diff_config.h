@@ -3,8 +3,17 @@
 #include <cstddef>
 #include <stdlib.h>
 
+//----------mmu presets-------------
 const size_t ZONE_MAX_QUANTITY = 20;
 const size_t MMU_INIT_QUANTITY = 1;
+//----------------------------------
+
+enum
+DIFF_ERROR
+{
+    Success_Diff = 0,
+    Failure_Diff = -1,
+};
 
 
 struct
@@ -44,7 +53,7 @@ tree_diff
 {
     node* top;
     size_t quantity;
-
+    mmu diff_mmu;
 };
 
 struct

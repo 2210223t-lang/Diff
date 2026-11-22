@@ -5,6 +5,8 @@
 const char logger_name[ PATH_MAX ] = "log.html";
 
 
+#define printlgb( sentence ) printlg( sentence "%s:%d\n", __FILE__, __LINE__ );
+
 int
 logger_open ();
 

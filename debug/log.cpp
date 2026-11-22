@@ -37,6 +37,7 @@ printlg ( const char* text, ... )
     fflush( logger_stream );
 }
 
+
 /**
  * @brief Closes logger_stream and sets it to stderr
  */
