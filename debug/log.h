@@ -1,0 +1,18 @@
+#pragma once
+
+#include <limits.h>
+
+const char logger_name[ PATH_MAX ] = "log.html";
+
+
+int
+logger_open ();
+
+void
+printlg ( const char* text, ... );
+
+void
+logger_close ( void );
+
+void
+putslg_debug ( const char* a );
