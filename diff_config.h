@@ -8,6 +8,13 @@ const size_t ZONE_MAX_QUANTITY = 20;
 const size_t MMU_INIT_QUANTITY = 1;
 //----------------------------------
 
+//-------------default sizes-------------
+const size_t VARIABLE_ELEM_BYTESIZE  = 4;
+const size_t OPERATION_ELEM_BYTESIZE = 1; 
+const size_t CONST_ELEM_BYTESIZE     = 8;
+//---------------------------------------
+
+
 enum
 DIFF_ERROR
 {
@@ -53,13 +60,13 @@ tree_diff
 {
     node* top;
     size_t quantity;
-    mmu diff_mmu;
 };
 
 struct
 diff_man
 {
     tree_diff func;
+    mmu diff_mmu;
 
 
 };
