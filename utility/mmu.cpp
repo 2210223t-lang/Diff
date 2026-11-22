@@ -8,6 +8,7 @@
 
 
 
+//-------------------Initialization----------------------
 static int
 init_zone ( zone_man* ptr, size_t elem_size )
 {
@@ -31,20 +32,21 @@ init_mmu ( diff_man* data )
 {
     assert( data );
     
-    if ( !( !data->diff_mmu.stat        && !data->diff_mmu.konst.zones && 
-            !data->diff_mmu.opera.zones && !data->diff_mmu.varia.zones ) )
+    checki( !data->diff_mmu.stat        && !data->diff_mmu.konst.zones && 
+            !data->diff_mmu.opera.zones && !data->diff_mmu.varia.zones, "Failure: attempt to init not - null mmu struct" );
+
+    if ( Success_Diff != init_zone( &data->diff_mmu.opera, OPERATION_ELEM_BYTESIZE ) ||
+         Success_Diff != init_zone( &data->diff_mmu.konst,     CONST_ELEM_BYTESIZE ) ||
+         Success_Diff != init_zone( &data->diff_mmu.varia,  VARIABLE_ELEM_BYTESIZE ) )
     {
-        printdb( "Failure: mmu_initialization" );
+        data->diff_mmu.stat = false;
         return Failure_Diff;
     }
 
-    checki( init_zone( &data->diff_mmu.opera, OPERATION_ELEM_BYTESIZE ), "ignore_diff" );
-    checki( init_zone( &data->diff_mmu.konst,     CONST_ELEM_BYTESIZE ), "ignore_diff" );
-    checki( init_zone( &data->diff_mmu.varia,  VARIABLE_ELEM_BYTESIZE ), "ignore_diff" );
-    
     return Success_Diff;
 }
 
+//---------------Locating--------------
 
 static int
 add_zone ( zone_man* ptr, size_t size )
@@ -65,6 +67,65 @@ add_zone ( zone_man* ptr, size_t size )
 }
 
 
+static char*
+find_space ( zone_man* ptr, size_t size )
+{
+    assert( ptr );
+
+    if ( ptr->zones[ ptr->quantity - 1 ].quantity == ZONE_MAX_QUANTITY )
+        if ( add_zone( ptr, size ) == Failure_Diff )
+            return nullptr;
+
+    return ptr->zones[ ptr->quantity - 1 ].data + size * ( ptr->zones[ ptr->quantity - 1 ].quantity++ - 1 );
+}
+
+
+char*
+locate_elem ( diff_man* man, char type )
+{
+    assert( man );
+
+    if ( !man->status || !man->diff_mmu.stat)
+    {
+        printdb( "Failure: can't proceed locating" );
+        man->status = false;
+        return nullptr;
+    }
+    switch ( type )
+    {
+        case  VARIABLE_CODE: return find_space( &man->diff_mmu.varia,  VARIABLE_ELEM_BYTESIZE );
+
+        case     CONST_CODE: return find_space( &man->diff_mmu.konst,     CONST_ELEM_BYTESIZE );
+    
+        case OPERATION_CODE: return find_space( &man->diff_mmu.opera, OPERATION_ELEM_BYTESIZE );
+
+        default:
+            printdb( "Failure: incorrect type." );
+            return nullptr;
+    }
+}
+
+//--------------------Destroying----------------------
+
+static int
+free_zone ( zone_man* zone )
+{
+    assert( zone );
+
+    if ( zone->zones )
+    {
+        for ( int i = 0; i < zone->quantity; i++ )
+            free( zone->zones[ i ].data );
+        
+        free( zone->zones );
+
+        return Success_Diff;
+    }
+
+    return Failure_Diff;
+}
+
+
 int
 free_mmu ( diff_man* data )
 {
@@ -72,8 +133,13 @@ free_mmu ( diff_man* data )
 
     mmu temp = data->diff_mmu;
 
-    checki( temp.stat, "Warning: attempt to free incorrect mmu struct" );
+    checki( temp.stat , "Warning: attempt to free incorrect mmu struct" );
+
+    checki( ( free_zone( &temp.konst ) == Success_Diff && 
+              free_zone( &temp.opera ) == Success_Diff &&
+              free_zone( &temp.varia ) == Success_Diff ), "Failure: incorrect mmu struct" );
+   
 
 
-
+    return Success_Diff;
 }

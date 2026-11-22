@@ -14,6 +14,12 @@ const size_t OPERATION_ELEM_BYTESIZE = 1;
 const size_t CONST_ELEM_BYTESIZE     = 8;
 //---------------------------------------
 
+//--------Type's codes--------
+const char VARIABLE_CODE  = 1;
+const char OPERATION_CODE = 2;
+const char CONST_CODE     = 3;
+//----------------------------
+
 
 enum
 DIFF_ERROR
@@ -67,6 +73,7 @@ diff_man
 {
     tree_diff func;
     mmu diff_mmu;
+    bool status;
 
 
 };
