@@ -24,6 +24,15 @@ const char CONST_CODE     = 3;
 const size_t MAX_OPERATOR_LENGTH = 5;
 //-----------------------------------
 
+enum 
+operation_codes
+{
+    LOG_CODE = -1,
+    COS_CODE = -2,
+    SIN_CODE = -3,
+    TAN_CODE = -4, 
+    CTG_CODE = -5, 
+};
 
 enum
 DIFF_ERROR

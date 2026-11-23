@@ -44,7 +44,7 @@ get_diff ( diff_man* man, node* curr )
                 case '/': __DIV( __SUB( __MUL( __DL, __CR ), __MUL( __CL, __DR ) ), __MUL( __CR, __CR ) );
                 case '^': __MUL( __POW( __CL, __CR ), 
                     __ADD( __MUL( __DR, __LN( __CL ) ), __DIV( __MUL( __CR, __DL ), __CL ) ) );
-                
+                case LOG_CODE: __DIV( __MUL, __MUL( __LN( )))               
 
                 default:
                     man->status = false;
