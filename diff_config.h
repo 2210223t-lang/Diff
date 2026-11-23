@@ -20,6 +20,10 @@ const char OPERATION_CODE = 2;
 const char CONST_CODE     = 3;
 //----------------------------
 
+//-----------Global const------------
+const size_t MAX_OPERATOR_LENGTH = 5;
+//-----------------------------------
+
 
 enum
 DIFF_ERROR
@@ -30,7 +34,7 @@ DIFF_ERROR
 
 
 union
-diff_type
+diff_elem
 {
     int opera;
     int varia;
@@ -40,7 +44,7 @@ diff_type
 struct
 node
 {
-    diff_type  data;
+    diff_elem  data;
     int    type;
     node*  left;
     node* right;
@@ -63,10 +67,8 @@ zone_man
 struct 
 mmu
 {
-    zone_man konst;
-    zone_man opera;
-    zone_man varia;
-    bool      stat;
+    zone_man zone;
+    bool     stat;
 };
 
 struct
