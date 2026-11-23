@@ -33,18 +33,10 @@ DIFF_ERROR
 };
 
 
-union
-diff_elem
-{
-    int opera;
-    int varia;
-    int konst;
-};
-
 struct
 node
 {
-    diff_elem  data;
+    int  data;
     int    type;
     node*  left;
     node* right;
@@ -82,8 +74,7 @@ struct
 diff_man
 {
     tree_diff func;
+    tree_diff deri;
     mmu diff_mmu;
     bool status;
-
-
 };
