@@ -29,10 +29,27 @@ DIFF_ERROR
 };
 
 
+union
+diff_type
+{
+    int opera;
+    int varia;
+    int konst;
+};
+
+struct
+node
+{
+    diff_type  data;
+    int    type;
+    node*  left;
+    node* right;
+};
+
 struct
 zone
 {
-    char* data;
+    node* data;
     size_t quantity;
 };
 
@@ -50,15 +67,6 @@ mmu
     zone_man opera;
     zone_man varia;
     bool      stat;
-};
-
-struct
-node
-{
-    char*  data;
-    int    type;
-    node*  left;
-    node* right;
 };
 
 struct

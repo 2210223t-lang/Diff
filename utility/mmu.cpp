@@ -10,14 +10,14 @@
 
 //-------------------Initialization----------------------
 static int
-init_zone ( zone_man* ptr, size_t elem_size )
+init_zone ( zone_man* ptr )
 {
     assert( ptr );
 
     ptr->zones = ( zone* ) calloc( MMU_INIT_QUANTITY, sizeof( zone ) );
     checki( ptr, "Failure: can't allocate enough memory" )
     
-    ptr->zones[ 0 ].data = ( char* ) calloc( ZONE_MAX_QUANTITY, elem_size );
+    ptr->zones[ 0 ].data = ( node* ) calloc( ZONE_MAX_QUANTITY, sizeof( node ) );
     checki( ptr->zones[ 0 ].data, "Failure: can't allocate enough memory" );
 
     ptr->quantity = 1;
@@ -35,9 +35,9 @@ init_mmu ( diff_man* data )
     checki( !data->diff_mmu.stat        && !data->diff_mmu.konst.zones && 
             !data->diff_mmu.opera.zones && !data->diff_mmu.varia.zones, "Failure: attempt to init not - null mmu struct" );
 
-    if ( Success_Diff != init_zone( &data->diff_mmu.opera, OPERATION_ELEM_BYTESIZE ) ||
-         Success_Diff != init_zone( &data->diff_mmu.konst,     CONST_ELEM_BYTESIZE ) ||
-         Success_Diff != init_zone( &data->diff_mmu.varia,  VARIABLE_ELEM_BYTESIZE ) )
+    if ( Success_Diff != init_zone( &data->diff_mmu.opera ) ||
+         Success_Diff != init_zone( &data->diff_mmu.konst ) ||
+         Success_Diff != init_zone( &data->diff_mmu.varia ) )
     {
         data->diff_mmu.stat = false;
         return Failure_Diff;
@@ -49,7 +49,7 @@ init_mmu ( diff_man* data )
 //---------------Locating--------------
 
 static int
-add_zone ( zone_man* ptr, size_t size )
+add_zone ( zone_man* ptr )
 {
     assert( ptr );
 
@@ -57,7 +57,7 @@ add_zone ( zone_man* ptr, size_t size )
     checki( temp, "Failure: can't reallocate mmu's zone" );
     ptr->zones = temp;
 
-    char* temp_arr = ( char* ) calloc( ZONE_MAX_QUANTITY, size );
+    node* temp_arr = ( node* ) calloc( ZONE_MAX_QUANTITY, sizeof( node ) );
     checki( temp_arr, "Failure: can't locate new zone for mmu" );
     ptr->zones[ ptr->quantity ].data = temp_arr;
     
@@ -67,20 +67,20 @@ add_zone ( zone_man* ptr, size_t size )
 }
 
 
-static char*
-find_space ( zone_man* ptr, size_t size )
+static node*
+find_space ( zone_man* ptr )
 {
     assert( ptr );
 
     if ( ptr->zones[ ptr->quantity - 1 ].quantity == ZONE_MAX_QUANTITY )
-        if ( add_zone( ptr, size ) == Failure_Diff )
+        if ( add_zone( ptr ) == Failure_Diff )
             return nullptr;
 
-    return ptr->zones[ ptr->quantity - 1 ].data + size * ( ptr->zones[ ptr->quantity - 1 ].quantity++ - 1 );
+    return ptr->zones[ ptr->quantity - 1 ].data + ( ptr->zones[ ptr->quantity - 1 ].quantity++ - 1 );
 }
 
 
-char*
+node*
 locate_elem ( diff_man* man, char type )
 {
     assert( man );
@@ -93,11 +93,11 @@ locate_elem ( diff_man* man, char type )
     }
     switch ( type )
     {
-        case  VARIABLE_CODE: return find_space( &man->diff_mmu.varia,  VARIABLE_ELEM_BYTESIZE );
+        case  VARIABLE_CODE: return find_space( &man->diff_mmu.varia );
 
-        case     CONST_CODE: return find_space( &man->diff_mmu.konst,     CONST_ELEM_BYTESIZE );
+        case     CONST_CODE: return find_space( &man->diff_mmu.konst );
     
-        case OPERATION_CODE: return find_space( &man->diff_mmu.opera, OPERATION_ELEM_BYTESIZE );
+        case OPERATION_CODE: return find_space( &man->diff_mmu.opera );
 
         default:
             printdb( "Failure: incorrect type." );
@@ -139,7 +139,5 @@ free_mmu ( diff_man* data )
               free_zone( &temp.opera ) == Success_Diff &&
               free_zone( &temp.varia ) == Success_Diff ), "Failure: incorrect mmu struct" );
    
-
-
     return Success_Diff;
 }
