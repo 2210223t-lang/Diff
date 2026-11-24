@@ -25,7 +25,6 @@ NewNode ( diff_man* man, int type, int value, node* left, node* right )
     return temp;
 }
 
-
 static node*
 get_diff ( diff_man* man, node* curr )
 {
