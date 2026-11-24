@@ -10,7 +10,7 @@ const size_t MMU_INIT_QUANTITY = 1;
 
 //-------------default sizes-------------
 const size_t VARIABLE_ELEM_BYTESIZE  = 4;
-const size_t OPERATION_ELEM_BYTESIZE = 1; 
+const size_t OPERATION_ELEM_BYTESIZE = 1;
 const size_t CONST_ELEM_BYTESIZE     = 8;
 //---------------------------------------
 
@@ -24,14 +24,14 @@ const char CONST_CODE     = 3;
 const size_t MAX_OPERATOR_LENGTH = 5;
 //-----------------------------------
 
-enum 
+enum
 operation_codes
 {
-    LOG_CODE = -1,
-    COS_CODE = -2,
-    SIN_CODE = -3,
-    TAN_CODE = -4, 
-    CTG_CODE = -5, 
+    LOG_CODE = 'l',
+    COS_CODE = 'c',
+    SIN_CODE = 's',
+    TAN_CODE = 't',
+    CTG_CODE = 'g',
 };
 
 enum
@@ -65,7 +65,7 @@ zone_man
     size_t quantity;
 };
 
-struct 
+struct
 mmu
 {
     zone_man zone;

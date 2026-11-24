@@ -21,7 +21,7 @@ NewNode ( diff_man* man, int type, int value, node* left, node* right )
     node* temp = locate_elem( man );
 
     *temp = { .data = value, .type = type, .left = left, .right = right };
-    
+
     return temp;
 }
 
@@ -33,18 +33,20 @@ get_diff ( diff_man* man, node* curr )
 
     switch ( curr->type )
     {
-        case CONST_CODE: return NewNode( man, CONST_CODE, 0, 0, 0 );
-        case VARIABLE_CODE: return NewNode( man, CONST_CODE, 1, 0, 0 );
+        case     CONST_CODE: return NewNode( man, CONST_CODE, 0, 0, 0 );
+        case  VARIABLE_CODE: return NewNode( man, CONST_CODE, 1, 0, 0 );
         case OPERATION_CODE:
-            switch ( curr->data )
+            switch ( curr->data )//TODO maybe add choosing func by the func pointer?
             {
                 case '+': __ADD( __DL, __DR );
                 case '-': __SUB( __DL, __DR );
                 case '*': __ADD( __MUL( __DL, __CR ), __MUL( __CL, __DR ) );
                 case '/': __DIV( __SUB( __MUL( __DL, __CR ), __MUL( __CL, __DR ) ), __MUL( __CR, __CR ) );
-                case '^': __MUL( __POW( __CL, __CR ), 
+                case '^': __MUL( __POW( __CL, __CR ),
                     __ADD( __MUL( __DR, __LN( __CL ) ), __DIV( __MUL( __CR, __DL ), __CL ) ) );
-                case LOG_CODE: __DIV( __MUL, __MUL( __LN( )))               
+                case LOG_CODE: __DIV( __MUL( __DL, __DR ), __MUL( __LN( __CL ), __CR ) );
+                case SIN_CODE: __MUL( __DL, __COS( __CL ) );
+                case COS_CODE: __MUL( __DL, __NEG( __SIN( __CL ) ) );
 
                 default:
                     man->status = false;
@@ -59,13 +61,14 @@ get_diff ( diff_man* man, node* curr )
     }
 }
 
-int 
+
+int
 handle_diff ( diff_man* man )
 {
     assert( man );
 
     checki( man->status, "ignore_diff" );
 
-  
+
 
 }

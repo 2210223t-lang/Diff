@@ -4,7 +4,8 @@
 #define __CL curr->left
 #define __DR get_diff( man, curr->right )
 #define __DL get_diff( man,  curr->left )
-#define __ONE NewNode( man, CONST_CODE, 1, 0, 0 )
+#define __ONE NewNode( man, CONST_CODE,  1, 0, 0 )
+#define __NEG( node ) NewNode( man, OPERATION_CODE, '*', NewNode( man, CONST_CODE, -1, 0, 0 ), node )
 
 #define __CONST NewNode( man, CONST_CODE, value, 0, 0 )
 #define __VARIA NewNode( man, CONST_CODE,     1, 0, 0 )
@@ -14,4 +15,7 @@
 #define __SUB( left, right ) NewNode( man, OPERATION_CODE, '-', left, right )
 #define __DIV( left, right ) NewNode( man, OPERATION_CODE, '/', left, right )
 #define __POW( left, right ) NewNode( man, OPERATION_CODE, '^', left, right )
-#define __LN( left )  NewNode( man, OPERATION_CODE, 'l', left,     0 )
+#define __LN( left )  NewNode( man, OPERATION_CODE, 'l', left, 0 )
+#define __SIN( left ) NewNode( man, OPERATION_CODE, 's', left, 0 )
+#define __COS( left ) NewNode( man, OPERATION_CODE, 'c', left, 0 )
+#define TAN
