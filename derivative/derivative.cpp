@@ -69,6 +69,10 @@ handle_diff ( diff_man* man )
 
     checki( man->status, "ignore_diff" );
 
+    get_diff( man, man->deri.top );
 
+    if ( man->status )
+        printlg( "Handle diff success exit.\n" );
 
+    return Success_Diff;
 }
