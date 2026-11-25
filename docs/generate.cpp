@@ -1,4 +1,4 @@
-#include <linux/limits.h>
+#include <limits.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -43,13 +43,20 @@ start_gener ( bool do_proceed )
         return;
 
     docs_out = fopen( docs_path, "w" );
-    
+
     if ( !docs_out)
         printlg( "Error: can't open docs file" );
+
+    printdoc( "\\documentclass{article}\n"
+              "\\usepackage[T2A]{fontenc}\n"
+              "\\usepackage[russian]{babel}\n"
+              "\\usepackage{amsmath}\n"
+              "\\usepackage[unicode]{hyperref}\n"
+              "\\begin{document}\n\n" );
 }
 
 
-void 
+void
 generate_docs ( bool do_proceed, node* before, node* diff )
 {
     if ( !do_proceed )
@@ -58,7 +65,7 @@ generate_docs ( bool do_proceed, node* before, node* diff )
     printdoc( "%d: ", steps_count++ );
 
     printdoc()
-    
+
 
 }
 
@@ -70,6 +77,11 @@ exit_gener ( bool do_proceed )
     if ( !do_proceed )
         return;
 
+    printdoc( "\end{document}" );
+
     fclose( docs_out );
     docs_out = 0;
+
+    system( "pdflatex docs.tex" );
+    system( "pdflatex docs.tex" );
 }
