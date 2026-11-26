@@ -11,12 +11,8 @@
 #include "../debug/colours.h"
 #include "../diff_config.h"
 #include "../debug/utilities.h"
-<<<<<<< HEAD
-#include "generate.h"
-=======
 #include "docs_utility.h"
 
->>>>>>> refs/remotes/origin/main
 
 
 static FILE* docs_out = 0;
@@ -37,17 +33,6 @@ static char phrases[ count_phrase ][ max_phrase ] = {
 
 
 
-<<<<<<< HEAD
-static void
-print_func ( node* curr )
-{
-    assert( curr );
-
-    printdoc( "( " );
-
-
-    printdoc( " )" );
-=======
 static size_t
 Getsize( int fd )
 {
@@ -56,7 +41,6 @@ Getsize( int fd )
     fstat( fd, &buf );
 
     return buf.st_size;
->>>>>>> refs/remotes/origin/main
 }
 
 
@@ -105,23 +89,9 @@ generate_docs ( bool do_proceed, node* before, node* diff )
     if ( !do_proceed )
         return;
 
-<<<<<<< HEAD
-    printdoc( "/section*{Step %d}\n\n ", steps_count++ );
-
-    printdoc( "Wanna find derivative of : " );
-    
-    print_func( before );
-    printdoc( "\n\n" );
-
-    //TODO add normal meme phrases.
-
-    
-
-=======
     printdoc( "\\subsection{ Step: %d }\n", steps_count++ );
 
     // printdoc()
->>>>>>> refs/remotes/origin/main
 
 
 }
