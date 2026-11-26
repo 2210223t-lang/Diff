@@ -32,6 +32,10 @@ operation_codes
     SIN_CODE = 's',
     TAN_CODE = 't',
     CTG_CODE = 'g',
+    MUL_CODE = '*',
+    SUM_CODE = '+',
+    DIF_CODE = '-',
+    DIV_CODE = '\\',
 };
 
 enum
@@ -42,10 +46,19 @@ DIFF_ERROR
 };
 
 
+union
+data_type
+{
+    float konst;
+    int   varia;
+    int   opera;
+};
+
+
 struct
 node
 {
-    int  data;
+    data_type  data;
     int    type;
     node*  left;
     node* right;

@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+
+\newcommand{\CosmicFunction}{x^2 + \sin x}//FIXME add there my function
+
+\begin{center}
+    {\LARGE\bfseries Native Way to Understand Cosmology\par}
+    \medskip
+    {\large A Treatise on the Differential Behavior of Everything\par}
+\end{center}
+
+\section*{Acknowledgements}
+
+The author wishes to thank the reader for undertaking this work
+without first requesting evidence that it was necessary.
+
+Special gratitude is expressed to the anonymous reviewers,
+whose comments are eagerly anticipated and have therefore
+not influenced the present edition.
+
+The author also acknowledges the contribution of the Universe,
+which has continued to exist throughout the preparation of
+this manuscript, providing valuable consistency between drafts.
+
+Finally, thanks are due to those students who described
+the intermediate calculations as ``unclear''. Their observations
+have helped identify precisely which calculations should be
+omitted from the final text.
+
+Responsibility for any remaining errors rests entirely with
+the author, except where their correction has been assigned
+as an exercise.
+
+\section{Introduction}
+
+Cosmology concerns the origin, structure, and evolution of
+the Universe. Its subject includes space, time, matter,
+radiation, and several questions which would have been
+considerably easier had the Universe supplied documentation.
+
+The scale of the problem presents certain practical difficulties.
+The Universe cannot conveniently be placed on a laboratory bench,
+restarted under controlled conditions, or replaced during
+the warranty period. We must therefore rely on observations,
+mathematical models, and a sufficiently confident presentation.
+
+This work develops the last of these methods in particular.
+
+\subsection{Preliminary cosmological considerations}
+
+On large scales, cosmology describes an expanding Universe
+in which gravity influences the evolution of matter and
+the formation of structure. A detailed treatment involves
+general relativity and the geometry of spacetime.
+
+A complete introduction to these subjects would require
+a substantial volume. Fortunately, the present work is
+also a substantial volume, although for different reasons.
+
+For our purposes, three observations will suffice:
+
+\begin{enumerate}
+    \item The Universe changes.
+    \item Mathematics provides a language for describing change.
+    \item Differentiation is therefore likely to appear
+          sooner or later.
+\end{enumerate}
+
+The reader may feel that the third observation follows
+rather quickly from the first two. This is an excellent
+indication of readiness for the remainder of the book.
+
+\subsection{The central cosmological function}
+
+We now introduce the central object of our investigation:
+the \emph{main cosmological function}.
+
+Its selection follows a rigorous procedure. An expression
+is supplied by the reader, accepted by the program, and
+subsequently typeset in a manner appropriate to its new
+scientific importance.
+
+Let this function be denoted by
+\[
+    \mathcal{C}(x) = \CosmicFunction.
+\]
+
+Here, \(x\) denotes the independent variable. Its precise
+physical interpretation will be addressed once it becomes
+necessary to defend one.
+
+The connection between this expression and the observable
+Universe is left open. This preserves the generality of
+the method and avoids restricting its applicability
+to expressions with an actual cosmological interpretation.
+
+\subsection{Method of investigation}
+
+Our immediate objective is to determine
+\[
+    \frac{d\mathcal{C}}{dx}.
+\]
+
+Where differentiation is performed, we work on a domain
+where the expression and the required derivatives exist.
+
+The calculation will proceed through a sequence of
+carefully selected steps. Some will be explained in detail.
+Others will follow from standard results, elementary
+considerations, or the great theorem of uniform comprehensibility%
+\footnote{
+    A transition that is obvious to the lecturer is considered
+    clear to the entire audience, uniformly with respect
+    to the audience's level of preparation.
+    The proof is omitted as an immediate application
+    of the theorem itself.
+}.
+
+The amount of explanation accompanying a step should not
+be confused with its mathematical difficulty.
+A particularly short explanation may indicate
+a particularly ambitious omission.
+
+Having established the necessary foundations, we now turn
+to the calculation itself. The reader is encouraged
+to keep a pencil nearby, since several responsibilities
+are about to be transferred.
+
+
+\end{document}
