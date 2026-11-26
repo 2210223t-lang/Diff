@@ -6,6 +6,7 @@
 
 #include "../diff_config.h"
 #include "../debug/utilities.h"
+#include "generate.h"
 
 
 static FILE* docs_out = 0;
@@ -23,6 +24,19 @@ static char phrases[ count_phrase ][ max_phrase ] = {
 };
 
 
+
+static void
+print_func ( node* curr )
+{
+    assert( curr );
+
+    printdoc( "( " );
+
+
+    printdoc( " )" );
+}
+
+
 void
 printdoc ( const char* text, ... )
 {
@@ -30,6 +44,7 @@ printdoc ( const char* text, ... )
 
     va_list args;
     va_start( args, text );
+
     vfprintf( docs_out, text, args );
     va_end( args );
 }
@@ -62,9 +77,17 @@ generate_docs ( bool do_proceed, node* before, node* diff )
     if ( !do_proceed )
         return;
 
-    printdoc( "%d: ", steps_count++ );
+    printdoc( "/section*{Step %d}\n\n ", steps_count++ );
 
-    printdoc()
+    printdoc( "Wanna find derivative of : " );
+    
+    print_func( before );
+    printdoc( "\n\n" );
+
+    //TODO add normal meme phrases.
+
+    
+
 
 
 }
