@@ -1,3 +1,5 @@
-#pragma once 
+#pragma once
 
 
+void
+printdoc ( const char* text, ... );

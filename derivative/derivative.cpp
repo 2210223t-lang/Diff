@@ -20,7 +20,18 @@ NewNode ( diff_man* man, int type, int value, node* left, node* right )
 
     node* temp = locate_elem( man );
 
-    *temp = { .data = value, .type = type, .left = left, .right = right };
+    *temp = { .type = type, .left = left, .right = right };
+
+    switch( type )
+    {
+        case OPERATION_CODE: temp->data.opera = value;
+        case  VARIABLE_CODE: temp->data.varia = value;
+        case CONST_CODE: temp->data.konst = *( ( float* ) &value );
+
+        default:
+            printlg( ERROR_DIFF_STYLE "Error: incorrect datatype in %s:%d" ERROR_DIFF_END, __FILE__, __LINE__ );
+            return nullptr;
+    }
 
     return temp;
 }
@@ -30,12 +41,14 @@ get_diff ( diff_man* man, node* curr )
 {
     assert( curr );
 
+    data_type temp;
+
     switch ( curr->type )
     {
         case     CONST_CODE: return NewNode( man, CONST_CODE, 0, 0, 0 );
         case  VARIABLE_CODE: return NewNode( man, CONST_CODE, 1, 0, 0 );
         case OPERATION_CODE:
-            switch ( curr->data )//TODO maybe add choosing func by the func pointer?
+            switch ( curr->data.opera )//TODO maybe add choosing func by the func pointer?
             {
                 case '+': __ADD( __DL, __DR );
                 case '-': __SUB( __DL, __DR );
